@@ -1,0 +1,13 @@
+import example.*
+
+describe "test tp6" {
+    const belu = new Guerrero (cantAniosServicio=4, vida=500)
+    //osea 400 + equipamiento 
+    test "punto 1: conocer fuerza ataqwe guerero"{
+        assert.equals (8*100+100, belu.fuerzaAtaque())
+    }
+
+    test "sin equipamiento" {
+        assert.equals(1000, new Guerrero(equipamientos=[]).fuerzaAtaque())
+    }
+}
