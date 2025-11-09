@@ -1,13 +1,75 @@
 import example.*
 
+// assert.equals(valorEsperado, valorObtenido)!!!!
 describe "test tp6" {
-    const belu = new Guerrero (cantAniosServicio=4, vida=500)
-    //osea 400 + equipamiento 
-    test "punto 1: conocer fuerza ataqwe guerero"{
-        assert.equals (8*100+100, belu.fuerzaAtaque())
-    }
-
-    test "sin equipamiento" {
-        assert.equals(1000, new Guerrero(equipamientos=[]).fuerzaAtaque())
-    }
+  test "un guerrero con 10 anios y una espada tiene 1100 de fuerza de ataque" {
+    const unGuerrero = new Aventurero(
+      vida = 1000,
+      cantAniosServicio = 10,
+      defensa = 50,
+      cantPlus = 100
+    ) //tiene solo espada osea daño 100 y desgaste 0
+    //danioEquipamiento entonces 100 el plues es 100*cantidadanioservicio osea 10 = 1000
+    //fuerzaatauqe entonces 100 + 1000 =1100
+    assert.equals(1100, unGuerrero.fuerzaAtaque())
+  }
+  
+  test "un guerrero acata a otro aventurero " {
+    //el mismo de anteso osea fuerza ataque = 1100
+    //contricnante quiero que tnega 500 de vida y 100 de defensa
+    //atacante.actacar(defensor)
+    // entonces danio= 1100 - 200 =90
+    // vida nueva contrincante = 600 - 900 = -400
+    const atacante = new Aventurero(
+      vida = 1000,
+      cantAniosServicio = 10,
+      defensa = 50,
+      cantPlus = 100
+    )
+    const contrincante = new Aventurero(
+      vida = 500,
+      cantAniosServicio = 1,
+      defensa = 200,
+      cantPlus = 100
+    )
+    
+    atacante.atacar(contrincante)
+    
+    assert.equals(-400, contrincante.vida())
+  }
+  
+  test "un mago ataca y su companiero es quien realmente ataca" {
+    const companiero = new Aventurero(
+      vida = 100,
+      cantAniosServicio = 1,
+      defensa = 10,
+      cantPlus = 100
+    )
+    const defensor = new Aventurero(
+      vida = 500,
+      cantAniosServicio = 1,
+      defensa = 50,
+      cantPlus = 100
+    )
+    const mago = new Mago(
+      vida = 300,
+      cantAniosServicio = 5,
+      defensa = 10,
+      cantPlus = 0,
+      companiero = companiero
+    )
+    mago.atacar(defensor)
+    assert.equals(350, defensor.vida())
+  }
+  
+  test "un clerigo recibe danio, pierde vida pero se cura 5" {
+    const clerigo = new Clerigo(
+      vida = 1000,
+      cantAniosServicio = 2,
+      defensa = 50
+    )
+    
+    clerigo.recibirDanio(100)
+    assert.equals(955, clerigo.vida())
+  }
 }
