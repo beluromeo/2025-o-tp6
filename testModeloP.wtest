@@ -1,0 +1,21 @@
+import modeloParcial.*
+import example.*
+
+// assert --> afirmo que..
+// assert.that --> afirmo que tal cosa es true
+// assert.notThat --> afirmo que no es true, es false
+// assert.equals( valor_obtenido, valor_esperado ) --> el primero es igual al segundo valor
+describe "test tripulacion" {
+    const belu = new Tripulante (fuerza = 60)
+    const jime = new Tripulante (conocimiento = 50)
+    test "un tripulante con fuerza suficiente puede cambiar a obrero"{
+        assert.that(belu.cambiarRol(new TipoRolObrero()))
+    }
+    test "un obrero debería tener 50 de prestigio" {
+       const obrero = new Tripulante(rol = new TipoRolObrero())
+       assert.equals(obrero.prestigio(), 50)
+}
+    test "un tripulante con conocimento suficiente puede cambiar a mrFantasy"{
+        assert.that(jime.cambiarRol(new TipoRolMrFusion()))
+    }
+}

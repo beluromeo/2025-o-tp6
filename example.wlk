@@ -64,7 +64,41 @@ object armadura {
   method danio() = 0
 }
 
-class BastonComun inherits Equipamiento {
-  override method danio() = 10
+
+
+/*
+Se agregan dos clases de bastones además de los bastones comunes: la clava (que tiene clavos) y la maza (que tiene una bola de hierro con pinches). 
+El bastón común sigue produciendo 10 de daño,
+la clava produce 12 de daño + la cantidad de clavos, 
+y la maza produce 15 de daño por cada kg de peso.
+Importante: cuando un bastón común se usa 3 veces, se transforma en una clava de 2 clavos. Cuando ese arma llega a 8 usos, se transforma en una maza de 1 kg.
+
+*/
+class Baston inherits Equipamiento {
+  var cantUsos = 0
+  //cambia mi tipo -> cambia mi objeto
+  var tipo = new TipoComun()
+  method usar(){
+    cantUsos += 1
+    if (cantUsos ==3){
+    tipo = new TipoClava(cantClavos =2)
+    } else if (cantUsos==8){
+      tipo = new TipoMaza(kgPeso = 1)
+    }
+  }
+}
+class TipoComun  {
+  method danio () = 10
+}
+class TipoClava  {
+  var cantClavos
+  method danio () = 12 + cantClavos
 }
 
+class TipoMaza {
+  var kgPeso
+  method danio()= 15 * kgPeso
+}
+
+const elComun = new Baston(tipo = new TipoComun())
+const laClava = new Baston(tipo = new TipoClava(cantClavos = 10))
